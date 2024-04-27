@@ -1,0 +1,1 @@
+[{"pkgName":"cl-user","text":"(format t (read))"},{"pkgName":"cl-user","text":"(print (read))"},{"pkgName":"cl-user","text":"(let (input (read))   (format t \"~a\" input))"},{"pkgName":"cl-user","text":"(let (input (read))   (format t input))"},{"pkgName":"cl-user","text":"(read-line)"},{"pkgName":"cl-user","text":"(read)"},{"pkgName":"cl-user","text":"(+ 1 1)"}]

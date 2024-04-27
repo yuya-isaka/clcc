@@ -1,0 +1,1924 @@
+{
+  // Place your GLOBAL snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "rem find & grep": {
+    "scope": "shellscript",
+    "prefix": ";bash find ファイルパス -type f | xargs grep -n '検索したい文字列'",
+    "body": [
+      "find ファイルパス -type f | xargs grep -n '検索したい文字列'"
+    ],
+  },
+  "rem otool": {
+    "scope": "shellscript",
+    "prefix": ";bash otool 静的リンクか動的リンクか",
+    "body": [
+      "otool -L 実行ファイル"
+    ],
+  },
+  "rem grep": {
+    "scope": "shellscript",
+    "prefix": ";bash grep \"パターン\" ファイルパス",
+    "body": [
+      "grep \"パターン\" ファイルパス"
+    ],
+  },
+  "rem path": {
+    "scope": "",
+    "prefix": ";path /usr/local/bin スクリプトバイナリ",
+    "body": [
+      "2>&1"
+    ],
+  },
+  "rem 2>&1": {
+    "scope": "",
+    "prefix": ";sh 2>&1 標準エラーを標準出力にマージ",
+    "body": [
+      "2>&1"
+    ],
+  },
+  "rem >": {
+    "scope": "",
+    "prefix": ";sh > 上書きリダイレクト",
+    "body": [
+      ">"
+    ],
+  },
+  "rem >>": {
+    "scope": "",
+    "prefix": ";sh >> 末尾追加リダイレクト",
+    "body": [
+      ">>"
+    ],
+  },
+  "rem git reset hard": {
+    "scope": "",
+    "prefix": ";git reset --hard HEAD~1 変更全て消す、直前コミット取り消し",
+    "body": [
+      "git reset --hard HEAD~1"
+    ],
+  },
+  "rem git reset soft": {
+    "scope": "",
+    "prefix": ";git reset --soft HEAD~1 変更ステージング残す、直前コミット取り消し",
+    "body": [
+      "git reset --soft HEAD~1"
+    ],
+  },
+  "rem git reset soft 指定": {
+    "scope": "",
+    "prefix": ";git reset --soft コミットハッシュ ... 変更ステージング残す、コミット取り消し",
+    "body": [
+      "git reset --soft コミットハッシュ"
+    ],
+  },
+  "rem git diff staged": {
+    "scope": "",
+    "prefix": ";git diff --staged",
+    "body": [
+      "git diff --staged"
+    ],
+  },
+  "rem map": {
+    "scope": "zig",
+    "prefix": ";map AutoHashMap",
+    "body": [
+      "// put, fetchPut, count, iterator()→next(), get().?, remove(), clearAndFree()",
+      "var map = std.AutoHashMap($1, $2).init(allocator);",
+      "defer map.deinit();",
+      "// try std.testing.expectEqual(@as(u8, 'a'), map.get(0).?);",
+      "// try std.testing.expect(map.get(2) == null);",
+      "// const prev = try map.fetchPut(0, 'x');",
+      "// try std.testing.expectEqual(@as(u32, 0), prev.?.key);",
+      "// try std.testing.expectEqual(@as(u8, 'a'), prev.?.value);"
+    ],
+  },
+  "rem map array": {
+    "scope": "zig",
+    "prefix": ";map AutoArrayHashMap 挿入順保証",
+    "body": [
+      "// put, fetchPut, count, iterator()→next(), get().?, remove(), clearAndFree()",
+      "var map = std.AutoArrayHashMap($1, $2).init(allocator);",
+      "defer map.deinit();",
+      "// try std.testing.expectEqual(@as(u8, 'a'), map.get(0).?);",
+      "// try std.testing.expect(map.get(2) == null);",
+      "// var it = map.iterator();",
+      "// try std.testing.expectEqual(@as(u8, 'a'), it.next().?.value_ptr.*);",
+      "// try std.testing.expect(it.next() == null);"
+    ],
+  },
+  "rem map string": {
+    "scope": "zig",
+    "prefix": ";map String 文字列:?",
+    "body": [
+      "// put, fetchPut, count, iterator()→next(), get().?, remove(), clearAndFree()",
+      "var map = std.StringHashMap($1).init(allocator);",
+      "defer map.deinit();"
+    ],
+  },
+  "rem map string array": {
+    "scope": "zig",
+    "prefix": ";map string array 文字列:? 挿入順保証",
+    "body": [
+      "// put, fetchPut, count, iterator()→next(), get().?, remove(), clearAndFree()",
+      "var map = std.StringArrayHashMap($1).init(allocator);",
+      "defer map.deinit();"
+    ],
+  },
+  "rem map buf 文字列:文字列": {
+    "scope": "zig",
+    "prefix": ";map buf 文字列:文字列",
+    "body": [
+      "// put, fetchPut, count, iterator()→next(), get().?, remove(), clearAndFree()",
+      "// 文字列：文字列",
+      "var bufmap = std.BufMap.init(allocator);",
+      "defer bufmap.deinit();"
+    ],
+  },
+  "rem map comptime string": {
+    "scope": "zig",
+    "prefix": ";map comptime string 文字列:? コンパイル時に要素確定",
+    "body": [
+      "// has(), get()",
+      "const KV = struct {",
+      "@\"0\": []const u8,",
+      "@\"1\": u32,",
+      "};",
+      "const map = std.ComptimeStringMap(u32, [_]KV{",
+      ".{ .@\"0\" = \"foo\", .@\"1\" = 42 },",
+      ".{ .@\"0\" = \"barbaz\", .@\"1\" = 99 },",
+      "});",
+      "// try std.testing.expectEqual(@as(u32,42), map.get(\"foo\").?);",
+      "// try std.testing.expectEqual(@as(u32, 99), map.get(\"barbaz\").?);",
+      "// try std.testing.expect(!map.has(\"hello\"));",
+      "// try std.testing.expect(map.get(\"hello\") == null);"
+    ],
+  },
+  "rem EnumMap": {
+    "scope": "zig",
+    "prefix": ";map EnumMap Enum:?",
+    "body": [
+      "// put, fetchPut, count, iterator()→next(), get().?, remove(), clearAndFree()",
+      "const Foo = std.EnumMap(enum {",
+      "foo,",
+      "bar,",
+      "}, u32);",
+      "// try std.testing.expectEqual(@as(usize, 2), A.len);",
+      "var a = Foo{};",
+      "// try std.testing.expectEqual(@as(usize, 0), a.count());",
+      "a.put(.foo, 42);",
+      "// try std.testing.expectEqual(@as(usize, 1), a.count());",
+      "// try std.testing.expect(a.contains(.foo));",
+      "// try std.testing.expect(!a.contains(.bar));"
+    ],
+  },
+  "rem set buf string": {
+    "scope": "zig",
+    "prefix": ";set String 文字列の集合",
+    "body": [
+      "// insert, remove, count, contains",
+      "// 文字列の集合",
+      "var bufset = std.BufSet.init(allocator);",
+      "defer bufset.deinit();"
+    ],
+  },
+  "rem EnumSet": {
+    "scope": "zig",
+    "prefix": ";set Enum Enumの集合",
+    "body": [
+      "// insert, remove, count, contains",
+      "const Foo = std.EnumSet(enum {",
+      "foo,",
+      "bar,",
+      "});",
+      "// try std.testing.expectEqual(@as(usize, 2), A.len);",
+      "var a = Foo{};",
+      "// try std.testing.expectEqual(@as(usize, 0), a.count());",
+      "a.insert(.foo);",
+      "// try std.testing.expectEqual(@as(usize, 1), a.count());",
+      "// try std.testing.expect(a.contains(.foo));",
+      "// try std.testing.expect(!a.contains(.bar));",
+      "a.remove(.foo);",
+      "// try std.testing.expectEqual(@as(usize, 0), a.count());",
+    ],
+  },
+  "rem set satic bit": {
+    "scope": "zig",
+    "prefix": ";set static bit ビット集合（コンパイル時）",
+    "body": [
+      "// initEmpty(), count(), setValue( , ), isSet()",
+      "// コンパイル時に決定するビット集合",
+      "var bitset = std.StaticBitSet(4).initEmpty();",
+      "bitset.setValue(1, true);",
+      "bitset.setRangeValue(.{ .start = 2, .end = 4 }, true);",
+      "// try std.testing.expectEqual(@as(usize, 0), bitset.count());",
+      "// try std.testing.expectEqual(@as(usize, 1), bitset.count());",
+      "// try std.testing.expect(!bitset.isSet(0));",
+      "// try std.testing.expect(bitset.isSet(1));",
+      "// try std.testing.expectEqual(@as(usize, 3), bitset.count());"
+    ],
+  },
+  "rem ArrayList": {
+    "scope": "zig",
+    "prefix": ";array",
+    "body": [
+      "// items(), items.len, append(), appendSlice(), pop(), clearAndFree(), writer(), clearRetainingCapacity()",
+      "var list$1 = std.ArrayList(u8).init(allocator);",
+      "defer list$1.deinit();"
+    ],
+  },
+  "rem SegmentedList": {
+    "scope": "zig",
+    "prefix": ";array segmented",
+    "body": [
+      "// items(), items.len, append(), appendSlice(), pop(), clearAndFree(), writer(), clearRetainingCapacity()",
+      "// 追加領域を確保した後も、それまで格納されていたデータは元の位置に残る",
+      "const L = std.SegmentedList(u32, 2);",
+      "var list = L{};",
+      "defer list.deinit(allocator);",
+      "try list.append(allocator, 1);",
+      "try list.append(allocator, 2);",
+      "try list.append(allocator, 3);",
+      "// try std.testing.expectEqual(@as(usize, 3), list.count());",
+      "{",
+      "// var it = list.constIterator(0);",
+      "var it = list.iterator(0);",
+      "var s: u32 = 0;",
+      "while (it.next()) |item| {",
+      "s += item.*;",
+      "}",
+      "// try std.testing.expectEqual(@as(u32, 6), s);",
+      "}",
+    ],
+  },
+  "rem MultiArrayList": {
+    "scope": "zig",
+    "prefix": ";array multi フィールドごとにメモリ",
+    "body": [
+      "// items(), items.len, append(), appendSlice(), pop(), clearAndFree(), writer(), clearRetainingCapacity()",
+      "// 構造体の配列（フィールドごとにメモリを用意）",
+      "const Foo = struct {",
+      " field_one: u32,",
+      " field_two: []const u8,",
+      "};",
+      "var list = MultiArrayList(Foo){};",
+      "defer list.deinit(allocator);",
+      "// try std.testing.expectEqual(@as(usize, 0), list.items(.field_one).len);",
+      "try list.append(allocator, .{",
+      ".field_one = 1,",
+      ".field_two = \"foo\",",
+      "});",
+      "try list.append(allocator, .{",
+      ".field_one = 2,",
+      ".field_two = \"bar\",",
+      "});",
+      "// try std.testing.expectEqualSlices(u32, list.items(.field_one), &[_]u32{ 1, 2 });",
+      "// try testing.expectEqual(@as(usize, 2), list.items(.field_two).len);",
+      "// try testing.expectEqualStrings(\"foo\", list.items(.field_two)[0]);",
+      "// try testing.expectEqualStrings(\"bar\", list.items(.field_two)[1]);",
+    ],
+  },
+  "rem BoundedArray": {
+    "scope": "zig",
+    "prefix": ";array bounded 最大サイズがコンパイル時にわかっている",
+    "body": [
+      "// init(), capacity(), slice().len, constSlice().len, resize(), set( , ), clearAndFree(), clearRetainingCapacity()",
+      "// 最大サイズがコンパイル時にわかっている配列",
+      "const BoundedArrayMax5 = std.BoundedArray(u8, 5);",
+      "// std.testing.expectError(error.Overflow, BoundedArrayMax5.init(8));",
+      "var a = try BoundedArrayMax5.init(3);",
+      "try a.resize(4);",
+      "a.set(0, 42);"
+    ],
+  },
+  "rem EnumArray": {
+    "scope": "zig",
+    "prefix": ";array EnumArray",
+    "body": [
+      "// items(), items.len, append(), appendSlice(), pop(), clearAndFree(), writer(), clearRetainingCapacity()",
+      "const Foo = std.EnumArray(enum {",
+      "foo,",
+      "bar,",
+      "}, u32);",
+      "var a = Foo.initFill(42);",
+      "// try std.testing.expectEqual(@as(usize,2), A.len);",
+      "// try std.testing.expectEqual(@as(u32, 42), a.get(.foo));",
+      "// try std.testing.expectEqual(@as(u32, 42), a.get(.bar));",
+    ],
+  },
+  "rem LinkedList Single": {
+    "scope": "zig",
+    "prefix": ";linked 単方向",
+    "body": [
+      "// prepend(Node), first, next, len(), first.?.data, popFirst().?.data",
+      "const L = std.SinglyLinkedList(u32);",
+      "var list = L{};",
+      "// try std.testing.expectEqual(@as(usize,0), list.len());",
+      "var one = L.Node{ .data = 1};",
+      "var two = L.Node{ .data = 2};",
+      "list.prepend(&two);",
+      "list.prepend(&one);",
+      "var it = list.first;",
+      "var val: u32 = 1;",
+      "while (it) |node| : (it = node.next) {",
+      "// try std.testing.expectEqual(val, node.data);",
+      "val += 1;",
+      "}",
+      "// try std.testing.expectEqual(@as(usize,2), list.len());",
+      "// try std.testing.expectEqual(@as(u32,1), list.first.?.data);",
+      "// try std.testing.expectEqual(@as(u32,1), list.popFirst().?.data);",
+    ],
+  },
+  "rem LinkedList Double": {
+    "scope": "zig",
+    "prefix": ";linked 双方向",
+    "body": [
+      "// append(Node), prepend(Node), (first, last), (next, prev), len(), first.?.data, popFirst().?.data",
+      "const L = std.TailQueue(u32);",
+      "var list = L{};",
+      "// try std.testing.expectEqual(@as(usize, 0), list.len);",
+      "var one = L.Node{ .data = 1 };",
+      "var two = L.Node{ .data = 2 };",
+      "var three = L.Node{ .data = 3 };",
+      "list.append(&two);",
+      "list.append(&three);",
+      "list.prepend(&one);",
+      "// try std.testing.expectEqual(@as(usize, 3), list.len);",
+      "// 順方向イテレート",
+      "{",
+      "var it = list.first;",
+      "var val: u32 = 1;",
+      "while (it) |node| : (it = node.next) {",
+      "// try std.testing.expectEqual(val, node.data);",
+      "val += 1;",
+      "}",
+      "}",
+      "// 逆方向イテレート",
+      "{",
+      "var it = list.last;",
+      "var val: u32 = 3;",
+      "while (it) |node| : (it = node.prev) {",
+      "// try std.testing.expectEqual(val, node.data);",
+      "val -= 1;",
+      "}",
+      "}",
+    ],
+  },
+  "rem tree Treap": {
+    "scope": "zig",
+    "prefix": ";tree Treap",
+    "body": [
+      "// getEntryFor(), set(), getMax(), getMin() key, node",
+      "const MyTreap = std.Treap(u32, std.math.order);",
+      "const Node = MyTreap.Node;",
+      "var treap = MyTreap{};",
+      "var nodes: [10]Node = undefined;",
+      "var i: u32 = 0;",
+      "while (i < 10) : (i += 1) {",
+      "var entry = treap.getEntryFor(i);",
+      "// try std.testing.expectEqual(i, entry.key);",
+      "// try std.testing.expect(entry.node == null);",
+      "entry.set(&nodes[i]);",
+      "}",
+      "// try std.testing.expectEqual(@as(u32,9), treap.getMax().?.key);",
+      "// try std.testing.expectEqual(@as(u32,0), treap.getMin().?.key);",
+    ],
+  },
+  "rem PriorityQueue Min": {
+    "scope": "zig",
+    "prefix": ";priorityqueue 最小値",
+    "body": [
+      "// add, remove, len",
+      "const MinHeap = std.PriorityQueue(u32, void, struct {",
+      "fn lessThan(context: void, a: u32, b: u32) std.math.Order {",
+      "_ = context;",
+      "return std.math.order(a, b);",
+      "}",
+      "}.lessThan);",
+      "var queue = MinHeap.init(allocator, {});",
+      "defer queue.deinit();",
+      "try queue.add(12);",
+      "try queue.add(7);",
+      "try queue.add(23);",
+      "// try std.testing.expectEqual(@as(usize, 3), queue.len);",
+      "// try std.testing.expectEqual(@as(u32, 7), queue.remove());",
+      "// try std.testing.expectEqual(@as(u32, 12), queue.remove());",
+      "// try std.testing.expectEqual(@as(u32, 23), queue.remove());",
+    ],
+  },
+  "rem PriorityQueue Max": {
+    "scope": "zig",
+    "prefix": ";priorityqueue 最大値",
+    "body": [
+      "// add, remove, len",
+      "const MaxHeap = std.PriorityQueue(u32, void, struct {",
+      "fn greaterThan(context: void, a: u32, b: u32) std.math.Order {",
+      "_ = context;",
+      "return std.math.order(a, b).invert();",
+      "}",
+      "}.lessThan);",
+      "var queue = MaxHeap.init(allocator, {});",
+      "defer queue.deinit();",
+      "try queue.add(12);",
+      "try queue.add(7);",
+      "try queue.add(23);",
+      "// try std.testing.expectEqual(@as(usize, 3), queue.len);",
+      "// try std.testing.expectEqual(@as(u32, 23), queue.remove());",
+      "// try std.testing.expectEqual(@as(u32, 12), queue.remove());",
+      "// try std.testing.expectEqual(@as(u32, 7), queue.remove());",
+    ],
+  },
+  "rem PriorityDeque": {
+    "scope": "zig",
+    "prefix": ";prioritydeque 最大値と最小値",
+    "body": [
+      "// add, removeMin, removeMax, len",
+      "// 最大値と最小値から取り出したい",
+      "const PQ = std.PriorityDequeue(u32, void, struct {",
+      "fn lessThan(context: void, a: u32, b: u32) std.math.Order {",
+      "_ = context;",
+      "return std.math.order(a, b);",
+      "}",
+      "}.lessThan);",
+      "var queue = PQ.init(allocator, {});",
+      "defer queue.deinit();",
+      "try queue.add(12);",
+      "try queue.add(7);",
+      "try queue.add(23);",
+      "// try std.testing.expectEqual(@as(usize, 3), queue.len);",
+      "// try std.testing.expectEqual(@as(u32, 7), queue.removeMin());",
+      "// try std.testing.expectEqual(@as(u32, 23), queue.removeMax());",
+      "// try std.testing.expectEqual(@as(u32, 12), queue.removeMin());",
+    ],
+  },
+  "rem Allocator": {
+    "scope": "zig",
+    "prefix": ";Allocator 型",
+    "body": [
+      "std.mem.Allocator"
+    ],
+  },
+  "rem testing.allocator": {
+    "scope": "zig",
+    "prefix": ";allocator テスト",
+    "body": [
+      "var allocator = std.testing.allocator"
+    ],
+  },
+  "rem heap.page_allocator": {
+    "scope": "zig",
+    "prefix": ";allocator OSにページ単位でメモリ要求",
+    "body": [
+      "var allocator = std.heap.page_allocator;"
+    ],
+  },
+  "rem general purpose allocator": {
+    "scope": "zig",
+    "prefix": ";allocator GPA ダブルフリーやメモリリークを検知",
+    "body": [
+      "var gpa = std.heap.GeneralPurposeAllocator(.{}){};",
+      "defer _ = gpa.deinit();",
+      "const allocator = gpa.allocator();"
+    ],
+  },
+  "rem heap.FixedBufferAllocator": {
+    "scope": "zig",
+    "prefix": ";allocator スタック上の固定長バッファ",
+    "body": [
+      "var buffer: [100]u8 = undefined;",
+      "var allocator = std.heap.FixedBufferAllocator.init(&buffer);",
+      "// const memory = try allocator.alloc(u8, 100);",
+      "// defer allocator.free(memory);",
+      "// try std.testing.expect(memory.len == 100);",
+      "// try std.testing.expect(@TypeOf(memory) == []u8);",
+    ],
+  },
+  "rem ArenaAllocator allocator": {
+    "scope": "zig",
+    "prefix": ";allocator アリーナ",
+    "body": [
+      "var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);",
+      "defer arena.deinit();",
+      "var allocator = arena.allocator();"
+    ],
+  },
+  "rem stream 固定バッファ": {
+    "scope": "zig",
+    "prefix": ";stream スタック上の固定長バッファ",
+    "body": [
+      "var buf: [255]u8 = undefined;",
+      "var fbs = std.io.fixedBufferStream(&buf);",
+      "",
+      "const stream = fbs.writer();",
+      "// try stream.print(\"{s}!\", .{ \"Hello\" });",
+      "// try std.testing.expectEqualSlices(u8, \"Hello\", fbs.getWritten());",
+      "try fbs.seekTo(0);",
+      "",
+      "var dest: [4]u8 = undefined;",
+      "var read = try fbs.reader().read(&dest);",
+      "// try std.testing.expect(read == 4);",
+      "try std.testing.expectEqualSlices(u8, dest[0..4], buf[0..4]);"
+    ],
+  },
+  "rem stdout": {
+    "scope": "zig",
+    "prefix": ";stdout 標準出力ファイル",
+    "body": [
+      "const stdout = std.io.getStdOut();"
+    ],
+  },
+  "rem stdout writer": {
+    "scope": "zig",
+    "prefix": ";stdout 標準出力ファイルのライタ",
+    "body": [
+      "$1std.io.getStdOut().writer()"
+    ],
+  },
+  "rem stdin": {
+    "scope": "zig",
+    "prefix": ";stdin 標準入力ファイル",
+    "body": [
+      "const stdin = std.io.getStdIn();"
+    ],
+  },
+  "rem stdin reader": {
+    "scope": "zig",
+    "prefix": ";stdin 標準入力ファイルのリーダ",
+    "body": [
+      "$1std.io.getStdIn().reader()"
+    ],
+  },
+  "rem stderr": {
+    "scope": "zig",
+    "prefix": ";stderr 標準エラーファイル",
+    "body": [
+      "const stderr = std.io.getStdErr();"
+    ],
+  },
+  "rem readByte": {
+    "scope": "zig",
+    "prefix": ";readByte 1バイト読み込み",
+    "body": [
+      "try $1.reader().readByte();"
+    ],
+  },
+  "rem readAll": {
+    "scope": "zig",
+    "prefix": ";readAll 文字列全て読み込み",
+    "body": [
+      "try $1.reader().readAll(&buf);"
+    ],
+  },
+  "rem read": {
+    "scope": "zig",
+    "prefix": ";read 読み込める分だけ読み込む",
+    "body": [
+      "try $1.reader().read(&buf);"
+    ],
+  },
+  "rem writeByte": {
+    "scope": "zig",
+    "prefix": ";writeByte 1バイト書き込み",
+    "body": [
+      "try $1.writeByte(\"$2\");"
+    ],
+  },
+  "rem writeAll": {
+    "scope": "zig",
+    "prefix": ";writeAll 文字列全て書き込み",
+    "body": [
+      "try $1.writeAll(\"$2\");"
+    ],
+  },
+  "rem write": {
+    "scope": "zig",
+    "prefix": ";write 書き込める分だけ書き込む",
+    "body": [
+      "try $1.write(\"$2\");"
+    ],
+  },
+  "rem print": {
+    "scope": "zig",
+    "prefix": ";print フォーマットして書き込み",
+    "body": [
+      "try $1.writer().print(\"$2{s}\", .{$3},);",
+    ],
+  },
+  "rem buffer": {
+    "scope": "zig",
+    "prefix": ";buffer",
+    "body": [
+      "var buffer: [std.mem.page_size]u8 = undefined;"
+    ],
+  },
+  "rem allocPrint": {
+    "scope": "zig",
+    "prefix": ";print Alloc",
+    "body": [
+      "const $1 = try std.fmt.allocPrint(allocator, \"$3\", .{$4},);",
+      "defer allocator.free($1);"
+    ],
+  },
+  "rem eql": {
+    "scope": "zig",
+    "prefix": ";eql アドレス比較",
+    "body": [
+      "std.mem.eql(u8, $1, $2)"
+    ],
+  },
+  "rem expect": {
+    "scope": "zig",
+    "prefix": ";expect 真偽値",
+    "body": [
+      "try std.testing.expect($1)"
+    ],
+  },
+  "rem equal": {
+    "scope": "zig",
+    "prefix": ";expect equal 2つの値",
+    "body": [
+      "// 数値",
+      "try std.testing.expectEqual($1, $2)"
+    ],
+  },
+  "rem equal slices": {
+    "scope": "zig",
+    "prefix": ";expect equal slices 2つのスライス",
+    "body": [
+      "try std.testing.expectEqualSlices($1, $2, $3)"
+    ],
+  },
+  "rem equal strings": {
+    "scope": "zig",
+    "prefix": ";expect equal string 2つの文字列",
+    "body": [
+      "try std.testing.expectEqualStrings($1, $2)"
+    ],
+  },
+  "rem equal error": {
+    "scope": "zig",
+    "prefix": ";expect equal error 2つのエラー",
+    "body": [
+      "try std.testing.expectEqualError($1, $2)"
+    ],
+  },
+  "rem TypeOf": {
+    "scope": "zig",
+    "prefix": ";typeOf",
+    "body": [
+      "@TypeOf($1)"
+    ],
+  },
+  "rem typeName": {
+    "scope": "zig",
+    "prefix": ";typeName",
+    "body": [
+      "@typeName($1)"
+    ],
+  },
+  "rem createFile": {
+    "scope": "zig",
+    "prefix": ";createFile",
+    "body": [
+      "// .read = true,",
+      "// .truncate = true, ... ファイルを開く際にファイルの内容を削除する?",
+      "// .exclusive = false ... ファイルが存在しないときに作る?",
+      "const file = try std.fs.cwd().createFile( \"$1.txt\", .{ .read = true },);",
+      "defer file.close();"
+    ],
+  },
+  "rem openFile": {
+    "scope": "zig",
+    "prefix": ";openFile",
+    "body": [
+      "// read_only, write_only, read_write, ",
+      "const file = try std.fs.cwd().openFile(\"$1.txt\", .{ .mode = .read_only });",
+      "defer file.close();"
+    ],
+  },
+  "rem seek": {
+    "scope": "zig",
+    "prefix": ";seek",
+    "body": [
+      "try file.seekTo(0);"
+    ],
+  },
+  "rem readUntilDelimiterOrEof": {
+    "scope": "zig",
+    "prefix": ";readUntilDelimiterOrEof 指定デリミタかEOFまで読み込み",
+    "body": [
+      "try reader.readUntilDelimiterOrEof(文字列$1, '取り除く文字$2');"
+    ],
+  },
+  "rem readUntilDelimiterOrEofAlloc": {
+    "scope": "zig",
+    "prefix": ";readUntilDelimiterOrEofAlloc 指定デリミタかEOFまで読み込み",
+    "body": [
+      "try reader.readUntilDelimiterOrEofAlloc(allocator, '$1', 1000$2);"
+    ],
+  },
+  "rem streamUntilDelimiter": {
+    "scope": "zig",
+    "prefix": ";streamUntilDelimiter 指定デリミタまで読んで書き込む",
+    "body": [
+      "reader.streamUntilDelimiter(writer, '$1', null)"
+    ],
+  },
+  "rem @import(\"builtin\").os.tag": {
+    "scope": "zig",
+    "prefix": ";builtin os tag",
+    "body": [
+      "// .macos, .ios, .watchos, .tvos, .windows",
+      "@import(\"builtin\").os.tag == .windows$1"
+    ],
+  },
+  "rem trimRight": {
+    "scope": "zig",
+    "prefix": ";trimRight スライスの右端から指定文字列を排除",
+    "body": [
+      "std.mem.trimRight(型$1, スライス$2, \"$3\")"
+    ],
+  },
+  "rem readAllAlloc": {
+    "scope": "zig",
+    "prefix": ";reader readAllAlloc アロケータ指定で全部読み込み",
+    "body": [
+      "try file.reader().readAllAlloc(allocator, ファイルから読み込む長さ$2);"
+    ],
+  },
+  "rem reader": {
+    "scope": "zig",
+    "prefix": ";reader 型",
+    "body": [
+      "reader: std.fs.File.Reader"
+    ],
+  },
+  "rem writer": {
+    "scope": "zig",
+    "prefix": ";writer 型",
+    "body": [
+      "writer: std.fs.File.Writer"
+    ],
+  },
+  "rem array.empty.pointer": {
+    "scope": "zig",
+    "prefix": ";array 空配列のポインタ",
+    "body": [
+      "&[_]u8$1{}"
+    ],
+  },
+  "rem len": {
+    "scope": "zig",
+    "prefix": ";as",
+    "body": [
+      "@as(usize, $1)"
+    ],
+  },
+  "rem string": {
+    "scope": "zig",
+    "prefix": ";string",
+    "body": [
+      "[]const u8"
+    ],
+  },
+  "rem memcpy": {
+    "scope": "zig",
+    "prefix": ";memcpy",
+    "body": [
+      "@memcpy(dst$1, src$2);"
+    ],
+  },
+  "rem json": {
+    "scope": "zig",
+    "prefix": ";json parse fromslice",
+    "body": [
+      "const Place = struct { foo: i32, bar: []const u8 };",
+      "const parsed = try std.json.parseFromSlice(",
+      "Place,",
+      "allocator,",
+      "\\\\\\{ \"foo\": 42, \"bar\": \"Hello\" }",
+      ",",
+      ".{},",
+      ");",
+      "defer parsed.deinit();"
+    ],
+  },
+  "rem json parse": {
+    "scope": "zig",
+    "prefix": ";json parse",
+    "body": [
+      "// parse()",
+      "var p = std.json.Parser.init(allocator, false);",
+      "defer p.deinit();",
+    ],
+  },
+  "rem json array": {
+    "scope": "zig",
+    "prefix": ";json array",
+    "body": [
+      "// append(), root",
+      "var a = std.json.Array.init(allocator);",
+      "defer a.deinit();"
+    ],
+  },
+  "rem json map": {
+    "scope": "zig",
+    "prefix": ";json map",
+    "body": [
+      "var m = std.json.ObjectMap.init(allocator);",
+      "defer m.deinit();"
+    ],
+  },
+  "rem json value": {
+    "scope": "zig",
+    "prefix": ";json value",
+    "body": [
+      "std.json.Value{ .String = tmp }",
+      "// String Object Array"
+    ],
+  },
+  "rem json stringify": {
+    "scope": "zig",
+    "prefix": ";json stringify JSON形式に変換",
+    "body": [
+      "$1.jsonStringify(.{}, stdout);"
+    ],
+  },
+  "rem json stringify all": {
+    "scope": "zig",
+    "prefix": ";json stringify all",
+    "body": [
+      "const before = Place{",
+      ".foo = 42,",
+      ".bar = \"Hello\"",
+      "};",
+      "var buffer: [100]u8 = undefined;",
+      "var fba = std.heap.FixedBufferAllocator.init(&buffer);",
+      "var after = std.ArrayList(u8).init(fba.allocator());",
+      "try std.json.stringify(before, .{}, after.writer());",
+      "try std.testing.expect(std.mem.eql(u8, after.items,",
+      "\\\\\\{\"foo\":42,\"bar\":\"Hello\"}",
+      "));"
+    ],
+  },
+  "rem endian": {
+    "scope": "zig",
+    "prefix": ";cpu endian",
+    "body": [
+      "@import(\"builtin\").cpu.arch.endian()"
+    ],
+  },
+  "rem cpu arch": {
+    "scope": "zig",
+    "prefix": ";cpu arch",
+    "body": [
+      "std.cpu.arch"
+    ],
+  },
+  "rem debug": {
+    "scope": "zig",
+    "prefix": ";debug",
+    "body": [
+      "std.debug.print(\"$1\", .{$2});"
+    ],
+  },
+  "rem random": {
+    "scope": "zig",
+    "prefix": ";random",
+    "body": [
+      "const rand = std.crypto.random;",
+      "const c = rand.int(u8);",
+      "const a = rand.float(f32);",
+      "const b = rand.boolean();",
+    ],
+  },
+  "rem sort": {
+    "scope": "zig",
+    "prefix": ";sort 昇順",
+    "body": [
+      "std.mem.sort(u8, &$1, {}, comptime std.sort.asc(u8));"
+    ],
+  },
+  "rem sort desc": {
+    "scope": "zig",
+    "prefix": ";sort 降順",
+    "body": [
+      "std.mem.sort(u8, &$1, {}, comptime std.sort.desc(u8));"
+    ],
+  },
+  "rem split": {
+    "scope": "zig",
+    "prefix": ";split スライスを指定デリミタで分割",
+    "body": [
+      "std.mem.split(u8, $1, \", \")",
+      "// next().?",
+    ],
+  },
+  "rem slice to owned": {
+    "scope": "zig",
+    "prefix": ";slice toOwned スライスに変換",
+    "body": [
+      "// allocatorでfreeする必要あり",
+      "$1.toOwnedSlice();"
+    ],
+  },
+  "rem tests": {
+    "scope": "zig",
+    "prefix": ";tests 形式",
+    "body": [
+      "const TestType = struct { input: u8, want: []const u8 };",
+      "const tests = [_]TestType{",
+      ".{ .input = 1, .want = \"1\" },",
+      "};"
+    ],
+  },
+  "rem std": {
+    "scope": "zig",
+    "prefix": ";std インポート",
+    "body": [
+      "const std = @import(\"std\");"
+    ],
+  },
+  "rem builtin": {
+    "scope": "zig",
+    "prefix": ";builtin インポート",
+    "body": [
+      "const builtin = @import(\"builtin\");"
+    ],
+  },
+  "rem .{}": {
+    "scope": "zig",
+    "prefix": ";kakko",
+    "body": [
+      ".{$1}"
+    ],
+  },
+  "rem main": {
+    "scope": "zig",
+    "prefix": ";main 関数",
+    "body": [
+      "pub fn main() anyerror!void {",
+      "   $1",
+      "}",
+    ],
+  },
+  "rem args": {
+    "scope": "zig",
+    "prefix": ";args コマンドライン引数取得（libc非依存）",
+    "body": [
+      "const args = try std.process.argsAlloc(allocator);",
+      "defer std.process.argsFree(allocator, args);",
+    ],
+  },
+  "rem args libc依存": {
+    "scope": "zig",
+    "prefix": ";args コマンドライン引数取得（windowsやwasiで動作しなくなる、libc依存）",
+    "body": [
+      "const args = try std.process.args();",
+      "// 指定したセンチネルを先頭から探して、最初に見つかった部分をセンチネルを含めてスライスを返す",
+      "const cmd_name = std.mem.sliceTo(args.next().?, 0);"
+    ],
+  },
+  "rem args シンプルlibc依存": {
+    "scope": "zig",
+    "prefix": ";args シンプル コマンドライン引数取得（windowsやwasiで動作しなくなる、libc依存）",
+    "body": [
+      "const argv = std.os.argv;",
+    ],
+  },
+  "rem args for": {
+    "scope": "zig",
+    "prefix": ";args for文",
+    "body": [
+      "for (args[1..args.len]) |arg| {",
+      "   $1",
+      "}",
+    ],
+  },
+  "rem page_size": {
+    "scope": "zig",
+    "prefix": ";page_size ページサイズ",
+    "body": [
+      "std.mem.page_size"
+    ],
+  },
+  "rem while true": {
+    "scope": "zig",
+    "prefix": ";while true",
+    "body": [
+      "while (true) {",
+      "   $1",
+      "}"
+    ],
+  },
+  "rem catch err": {
+    "scope": "zig",
+    "prefix": ";catch err",
+    "body": [
+      " catch |err| {",
+      "   $1",
+      "};"
+    ],
+  },
+  "rem log warn": {
+    "scope": "zig",
+    "prefix": ";log warn",
+    "body": [
+      "std.log.warn(\"$1\", .{$2});"
+    ],
+  },
+  "rem log info": {
+    "scope": "zig",
+    "prefix": ";log info ReleaseSafeモードで出力",
+    "body": [
+      "std.log.info(\"$1\", .{$2});"
+    ],
+  },
+  "rem log err": {
+    "scope": "zig",
+    "prefix": ";log err どのモードでも出力",
+    "body": [
+      "std.log.err(\"$1\", .{$2});"
+    ],
+  },
+  "rem orelse return null": {
+    "scope": "zig",
+    "prefix": ";orelse return null;",
+    "body": [
+      "orelse return null;"
+    ],
+  },
+  "rem orelse unreachable": {
+    "scope": "zig",
+    "prefix": ";orelse unreachable;",
+    "body": [
+      "orelse unreachable;"
+    ],
+  },
+  "rem f64": {
+    "scope": "zig",
+    "prefix": ";f64",
+    "body": [
+      "f64"
+    ],
+  },
+  "rem u64": {
+    "scope": "zig",
+    "prefix": ";u64",
+    "body": [
+      "u64"
+    ],
+  },
+  "rem i64": {
+    "scope": "zig",
+    "prefix": ";i64",
+    "body": [
+      "i64"
+    ],
+  },
+  "rem pow": {
+    "scope": "zig",
+    "prefix": ";math pow",
+    "body": [
+      "std.math.pow(f64, $1, 2);"
+    ],
+  },
+  "rem Self": {
+    "scope": "zig",
+    "prefix": ";self",
+    "body": [
+      "const Self = @This();"
+    ],
+  },
+  "rem exit": {
+    "scope": "zig",
+    "prefix": ";exit",
+    "body": [
+      "std.os.exit(1);"
+    ],
+  },
+  "rem cwd": {
+    "scope": "zig",
+    "prefix": ";get CWD カレントディレクトリ取得",
+    "body": [
+      "try std.process.getCwd(&buf$1);"
+    ],
+  },
+  "rem startsWith": {
+    "scope": "zig",
+    "prefix": ";startsWith $1が$2で始まっているか",
+    "body": [
+      "std.mem.startsWith(u8, $1, $2)"
+    ],
+  },
+  "rem endsWith": {
+    "scope": "zig",
+    "prefix": ";endsWith $1が$2で終わってるか",
+    "body": [
+      "std.mem.endsWith(u8, $1, $2)"
+    ],
+  },
+  "rem embedFile": {
+    "scope": "zig",
+    "prefix": ";embedFile",
+    "body": [
+      "@embedFile(\"$1\");"
+    ],
+  },
+  "rem sleep": {
+    "scope": "zig",
+    "prefix": ";sleep",
+    "body": [
+      "// μs",
+      "// 20秒",
+      "std.time.sleep(2e7);",
+      "// 1秒待機",
+      "std.time.sleep(1 * std.time.ns_per_s);"
+    ],
+  },
+  "rem time": {
+    "scope": "zig",
+    "prefix": ";time 現在自国を取得し文字列に変換",
+    "body": [
+      "// 現在時刻を取得",
+      "const now = std.time.nanoTimestamp();",
+      "// 時刻を文字列に変換",
+      "const formatted = std.fmt.fmtDurationSigned(@truncate(now));"
+    ],
+  },
+  "rem error EndOfStream": {
+    "scope": "zig",
+    "prefix": ";error EndOfStream",
+    "body": [
+      "error.EndOfStream"
+    ],
+  },
+  "rem error OutOfMemory": {
+    "scope": "zig",
+    "prefix": ";error OutOfMemory",
+    "body": [
+      "error.OutOfMemory"
+    ],
+  },
+  "rem compileError": {
+    "scope": "zig",
+    "prefix": ";compileError",
+    "body": [
+      "@compileError(\"$1\")"
+    ],
+  },
+  "rem min": {
+    "scope": "zig",
+    "prefix": ";min 最小値比較",
+    "body": [
+      "@min($1, $2);"
+    ],
+  },
+  "rem zig build": {
+    "scope": "",
+    "prefix": ";zig build-exe -target",
+    "body": [
+      "zig build-exe -target"
+    ],
+  },
+  "rem zig targets": {
+    "scope": "",
+    "prefix": ";zig targets",
+    "body": [
+      "zig targets"
+    ],
+  },
+  "rem zig cc": {
+    "scope": "",
+    "prefix": ";zig cc",
+    "body": [
+      "zig cc main.c -o main -target aarch64-linux-musl"
+    ],
+  },
+  "rem zig version": {
+    "scope": "",
+    "prefix": ";zig version",
+    "body": [
+      "zig version"
+    ],
+  },
+  "rem zig cc version": {
+    "scope": "",
+    "prefix": ";zig cc --version",
+    "body": [
+      "zig cc --version"
+    ],
+  },
+  "rem buffer writer": {
+    "scope": "zig",
+    "prefix": ";buffer writer 書き込みバッファ",
+    "body": [
+      "var bw = std.io.bufferedWriter(file.writer());",
+      "try bw.writer().print(\"Hello\", .{});",
+      "try bw.flush();"
+    ],
+  },
+  "rem buffer reader": {
+    "scope": "zig",
+    "prefix": ";buffer reader 書き込みバッファ",
+    "body": [
+      "var br = std.io.bufferedReader(file.reader());",
+      "try br.reader().readByte() catch |err| switch (err) {",
+      "    error.EndOfStream => {},",
+      "    else => @compileError(\"Error\" ++ @typeName(@TypeOf(err))),",
+      "};"
+    ],
+  },
+  "rem parseInt": {
+    "scope": "zig",
+    "prefix": ";parseInt 文字列を数値に変換",
+    "body": [
+      "try std.fmt.parseInt(i32, tmp, 10);"
+    ],
+  },
+  "rem sliceTo": {
+    "scope": "zig",
+    "prefix": ";sliceTo 指定したセンチネルを先頭から探して、最初に見つかった部分をセンチネルを含めてスライスを返す",
+    "body": [
+      "const str = [_]u8{ 'h', 'e', 'l', 'l', 'o', 0x00, 'w', 'o', 'r', 'l', 'd' };",
+      "const str2 = std.mem.sliceTo(&str, 0);",
+      "try std.testing.expect(std.mem.eql(u8, str2, \"hello\"));",
+      "try std.testing.expectEqualStrings(str2, \"hello\");",
+    ],
+  },
+  "rem null": {
+    "scope": "zig",
+    "prefix": ";init null 構造体の配列をnullで初期化",
+    "body": [
+      "const entries: [100]?STAR = .{null} ** 100",
+    ],
+  },
+  "rem intCast": {
+    "scope": "zig",
+    "prefix": ";cast intCast 任意のint型に変換",
+    "body": [
+      "@intCast($1)"
+    ],
+  },
+  "rem ptrCast": {
+    "scope": "zig",
+    "prefix": ";cast ptrCast 任意のptr型に変換",
+    "body": [
+      "@ptrCast($1)"
+    ],
+  },
+  "rem constCast": {
+    "scope": "zig",
+    "prefix": ";cast constCast 任意のconst型に変換",
+    "body": [
+      "@constCast($1)"
+    ],
+  },
+  "rem bitCast": {
+    "scope": "zig",
+    "prefix": ";cast bitCast 任意のbit型に変換",
+    "body": [
+      "@bitCast($1)"
+    ],
+  },
+  "rem intToPtr": {
+    "scope": "zig",
+    "prefix": ";cast intToPtr",
+    "body": [
+      "@intToPtr($1)"
+    ],
+  },
+  "rem ptrToInt": {
+    "scope": "zig",
+    "prefix": ";cast ptrToInt",
+    "body": [
+      "@ptrToInt($1)"
+    ],
+  },
+  "rem {d:..10}": {
+    "scope": "zig",
+    "prefix": ";{d:.10} 浮動小数点以下を表示",
+    "body": [
+      "{d:.10}"
+    ],
+  },
+  "rem bitReverse": {
+    "scope": "zig",
+    "prefix": ";bitReverse ビット反転",
+    "body": [
+      "@bitReverse(input)"
+    ],
+  },
+  "rem typeInfo": {
+    "scope": "zig",
+    "prefix": ";typeInfo 構造体の一番目のフィールドの名前",
+    "body": [
+      "@typeInfo(構造体名).Struct.fields[0].name"
+    ],
+  },
+  "rem inline": {
+    "scope": "zig",
+    "prefix": ";inline 限界を超えてinline展開",
+    "body": [
+      "@setEvalBranchQuota(10000);"
+    ],
+  },
+  "rem label": {
+    "scope": "zig",
+    "prefix": ";label ラベル",
+    "body": [
+      "label: while (true) {",
+      "    break :label$1",
+      "}"
+    ],
+  },
+  "rem setEndPos": {
+    "scope": "zig",
+    "prefix": ";setEndPos ファイルの終端位置を指定",
+    "body": [
+      "file.setEndPos(content.len);"
+    ],
+  },
+  "rem cImport": {
+    "scope": "zig",
+    "prefix": ";c Import",
+    "body": [
+      "@cImport({$1});"
+    ],
+  },
+  "rem cDefine": {
+    "scope": "zig",
+    "prefix": ";c Define",
+    "body": [
+      "@cDefine(\"$1\", \"$2\");"
+    ],
+  },
+  "rem cInclude": {
+    "scope": "zig",
+    "prefix": ";c Include",
+    "body": [
+      "@cInclude(\"$1\");"
+    ],
+  },
+  "rem os fd type": {
+    "scope": "zig",
+    "prefix": ";fd fd_t ファイルディスクリプタの型",
+    "body": [
+      "std.os.fd_t"
+    ],
+  },
+  "rem std.ascii.whitespace": {
+    "scope": "zig",
+    "prefix": ";whitespace",
+    "body": [
+      "std.ascii.whitespace"
+    ],
+  },
+  "rem sizeOf": {
+    "scope": "zig",
+    "prefix": ";sizeOf",
+    "body": [
+      "@sizeOf($1)"
+    ],
+  },
+  "rem reverse": {
+    "scope": "zig",
+    "prefix": ";reverse",
+    "body": [
+      "std.mem.reverse(u8, $1)"
+    ],
+  },
+  "rem indexOf": {
+    "scope": "zig",
+    "prefix": ";indexOf メモリ上の指定した値があるかどうか",
+    "body": [
+      "std.mem.indexOf(u8, $1, \"$2\""
+    ],
+  },
+  "rem #!/bin/bash -eux": {
+    "scope": "shellscript",
+    "prefix": ";bash #!/bin/bash -eux",
+    "body": [
+      "#!/bin/bash -eux"
+    ],
+  },
+  "rem check string": {
+    "scope": "shellscript",
+    "prefix": ";bash \"\" 文字列チェック",
+    "body": [
+      "[ \"`./wc test1`\" = \"`wc test1`\" ]"
+    ],
+  },
+  "tだと標準出力": {
+    "scope": "commonlisp",
+    "prefix": "] format",
+    "body": [
+      "format t \"$1\""
+    ],
+  },
+  "関数定義": {
+    "scope": "commonlisp",
+    "prefix": "] defun",
+    "body": [
+      "defun $1 ($2)",
+      "   $3",
+    ],
+  },
+  "変数定義（複数の値もセットできるよ）": {
+    "scope": "commonlisp",
+    "prefix": "] setf",
+    "body": [
+      "setf $1 $2",
+    ],
+  },
+  "多値を返す": {
+    "scope": "commonlisp",
+    "prefix": "] values",
+    "body": [
+      "values $1",
+    ],
+  },
+  "多値を受け取る": {
+    "scope": "commonlisp",
+    "prefix": "] multiple-value-list",
+    "body": [
+      "multiple-value-list $1",
+    ],
+  },
+  "多値から選択": {
+    "scope": "commonlisp",
+    "prefix": "] nth-value",
+    "body": [
+      "nth-value $1 $2",
+    ],
+  },
+  "リストから選択": {
+    "scope": "commonlisp",
+    "prefix": "] nth",
+    "body": [
+      "nth $1 $2",
+    ],
+  },
+  "多値を受け取りバインド": {
+    "scope": "commonlisp",
+    "prefix": "] multiple-value-bind",
+    "body": [
+      "multiple-value-bind $1 $2",
+    ],
+  },
+  "文字列を大文字に変換": {
+    "scope": "commonlisp",
+    "prefix": "] string-upcase",
+    "body": [
+      "string-upcase $1",
+    ],
+  },
+  "レキシカル変数定義（初期値ないとnil、最後に評価したS式返す）": {
+    "scope": "commonlisp",
+    "prefix": "] let",
+    "body": [
+      "let ($1)",
+    ],
+  },
+  "レキシカル変数を使って定義可能": {
+    "scope": "commonlisp",
+    "prefix": "] let*",
+    "body": [
+      "let* ($1)",
+    ],
+  },
+  "スペシャル変数（＊使おう）を定義（初期値なしOK、あったら上書き）": {
+    "scope": "commonlisp",
+    "prefix": "] defparameter",
+    "body": [
+      "defparameter $1 $2",
+    ],
+  },
+  "スペシャル変数（＊使おう）を定義（初期値なかったら）": {
+    "scope": "commonlisp",
+    "prefix": "] defvar",
+    "body": [
+      "defvar $1 $2",
+    ],
+  },
+  "リストを関数に適用": {
+    "scope": "commonlisp",
+    "prefix": "] mapcar",
+    "body": [
+      "mapcar #'$1 $2",
+    ],
+  },
+  "第1引数を第2引数に格納（第2引数がリストじゃないとドットリスト）": {
+    "scope": "commonlisp",
+    "prefix": "] cons",
+    "body": [
+      "cons $1 $2",
+    ],
+  },
+  "リストをまとめて、1つの値に": {
+    "scope": "commonlisp",
+    "prefix": "] reduce",
+    "body": [
+      "reduce #'$1 $2",
+    ],
+  },
+  "無名関数": {
+    "scope": "commonlisp",
+    "prefix": "] lambda",
+    "body": [
+      "lambda ($1) ($2)",
+    ],
+  },
+  "昇順ソート": {
+    "scope": "commonlisp",
+    "prefix": "] sort <",
+    "body": [
+      "sort $1 #'<",
+    ],
+  },
+  "降順ソート": {
+    "scope": "commonlisp",
+    "prefix": "] sort >",
+    "body": [
+      "sort $1 #'>",
+    ],
+  },
+  "リストを分解": {
+    "scope": "commonlisp",
+    "prefix": "] destructuring-bind",
+    "body": [
+      "destructuring-bind (f s &rest others) $1",
+    ],
+  },
+  "S式を出力する関数（改行+S式+空白1文字）": {
+    "scope": "commonlisp",
+    "prefix": "] print",
+    "body": [
+      "print $1",
+    ],
+  },
+  "ホームディレクトリからファイル文字列取得": {
+    "scope": "commonlisp",
+    "prefix": "] merge-pathnames",
+    "body": [
+      "merge-pathnames #p\"$1\" (user-homedir-pathname)",
+    ],
+  },
+  "ホームディレクトリパス": {
+    "scope": "commonlisp",
+    "prefix": "] user-homedir-pathname",
+    "body": [
+      "user-homedir-pathname"
+    ],
+  },
+  "パス指定": {
+    "scope": "commonlisp",
+    "prefix": "] #p\"\"",
+    "body": [
+      "#p\"$1\""
+    ],
+  },
+  "ファイルを開く": {
+    "scope": "commonlisp",
+    "prefix": "] with-open-file",
+    "body": [
+      "with-open-file (stream #p\"$1\" :direction :output :if-exists :supersede :if-does-not-exist :create",
+    ],
+  },
+  "指定した数、繰り返す": {
+    "scope": "commonlisp",
+    "prefix": "] dotimes",
+    "body": [
+      "dotimes $1 $2"
+    ],
+  },
+  "ランダムな値": {
+    "scope": "commonlisp",
+    "prefix": "] random",
+    "body": [
+      "random $1"
+    ],
+  },
+  "改行": {
+    "scope": "commonlisp",
+    "prefix": "] ~%",
+    "body": [
+      "~%"
+    ],
+  },
+  "小数点数桁数指定": {
+    "scope": "commonlisp",
+    "prefix": "] 数値f",
+    "body": [
+      "3f"
+    ],
+  },
+  "幅を指定": {
+    "scope": "commonlisp",
+    "prefix": "] ~10,d や ~10,3f",
+    "body": [
+      "~10,d"
+    ],
+  },
+  "標準エラーストリーム": {
+    "scope": "commonlisp",
+    "prefix": "] *error-output*",
+    "body": [
+      "*errror-output"
+    ],
+  },
+  "コンス？": {
+    "scope": "commonlisp",
+    "prefix": "] consp",
+    "body": [
+      "consp $1"
+    ],
+  },
+  "nil？": {
+    "scope": "commonlisp",
+    "prefix": "] null",
+    "body": [
+      "null $1"
+    ],
+  },
+  "リストの長さ": {
+    "scope": "commonlisp",
+    "prefix": "] length",
+    "body": [
+      "length $1"
+    ],
+  },
+  "真": {
+    "scope": "commonlisp",
+    "prefix": "] t",
+    "body": [
+      "t"
+    ],
+  },
+  "null と 空リスト": {
+    "scope": "commonlisp",
+    "prefix": "] nil",
+    "body": [
+      "t"
+    ],
+  },
+  "複数の条件式（switch的な）": {
+    "scope": "commonlisp",
+    "prefix": "] cond",
+    "body": [
+      "cond $1"
+    ],
+  },
+  "論理和": {
+    "scope": "commonlisp",
+    "prefix": "] or",
+    "body": [
+      "or"
+    ],
+  },
+  "論理積": {
+    "scope": "commonlisp",
+    "prefix": "] and",
+    "body": [
+      "and"
+    ],
+  },
+  "car cdr": {
+    "scope": "commonlisp",
+    "prefix": "] first rest",
+    "body": [
+      "first rest"
+    ],
+  },
+  "リストデータ構造は引用符": {
+    "scope": "commonlisp",
+    "prefix": "] `()",
+    "body": [
+      "`()"
+    ],
+  },
+  "1番目、2番目、3番目、4番目にアクセス": {
+    "scope": "commonlisp",
+    "prefix": "] car cadr caddr cadddr",
+    "body": [
+      "car cadr caddr cadddr"
+    ],
+  },
+  "引数を要素とした新しいリスト生成": {
+    "scope": "commonlisp",
+    "prefix": "] list",
+    "body": [
+      "list"
+    ],
+  },
+  "引数リスト（リストしかダメ）の中を取り出し、新しいリストを作成": {
+    "scope": "commonlisp",
+    "prefix": "] append",
+    "body": [
+      "append"
+    ],
+  },
+  "fixnum 最大値": {
+    "scope": "commonlisp",
+    "prefix": "] most-positive-fixnum 最大値",
+    "body": [
+      "most-positive-fixnum"
+    ],
+  },
+  "fixnum 最小値": {
+    "scope": "commonlisp",
+    "prefix": "] most-negative-fixnum 最小値",
+    "body": [
+      "most-negative-fixnum"
+    ],
+  },
+  "2進表記": {
+    "scope": "commonlisp",
+    "prefix": "] #b101",
+    "body": [
+      "#b101"
+    ],
+  },
+  "8進表記": {
+    "scope": "commonlisp",
+    "prefix": "] #o177",
+    "body": [
+      "#o177"
+    ],
+  },
+  "16進表記": {
+    "scope": "commonlisp",
+    "prefix": "] #x12a",
+    "body": [
+      "#x12a"
+    ],
+  },
+  "1加算関数": {
+    "scope": "commonlisp",
+    "prefix": "] 1+",
+    "body": [
+      "1+"
+    ],
+  },
+  "1減算関数": {
+    "scope": "commonlisp",
+    "prefix": "] 1-",
+    "body": [
+      "1-"
+    ],
+  },
+  "加算 & setf": {
+    "scope": "commonlisp",
+    "prefix": "] (incf a) (incf a n)",
+    "body": [
+      "(incf a) (incf a n)"
+    ],
+  },
+  "減算 & setf": {
+    "scope": "commonlisp",
+    "prefix": "] (decf a) (decf a n)",
+    "body": [
+      "(decf a) (decf a n)"
+    ],
+  },
+  "整数や分数を浮動小数点数に変換": {
+    "scope": "commonlisp",
+    "prefix": "] float",
+    "body": [
+      "float $1"
+    ],
+  },
+  "整数変換（切り捨て） →多値": {
+    "scope": "commonlisp",
+    "prefix": "] floor",
+    "body": [
+      "floor $1"
+    ],
+  },
+  "整数変換（切り上げ） →多値": {
+    "scope": "commonlisp",
+    "prefix": "] ceiling",
+    "body": [
+      "ceiling $1"
+    ],
+  },
+  "整数変換（小数点以下を切り捨て） →多値 推し": {
+    "scope": "commonlisp",
+    "prefix": "] truncate",
+    "body": [
+      "truncate $1"
+    ],
+  },
+  "整数変換（近い方の整数に丸める。0.5の場合には偶数方向に丸める。） →多値": {
+    "scope": "commonlisp",
+    "prefix": "] round",
+    "body": [
+      "round $1"
+    ],
+  },
+  "剰余": {
+    "scope": "commonlisp",
+    "prefix": "] rem",
+    "body": [
+      "rem $1 $2"
+    ],
+  },
+  "累乗": {
+    "scope": "commonlisp",
+    "prefix": "] expt",
+    "body": [
+      "expt $1 $2"
+    ],
+  },
+  "最大公約数（全ての引数、引数は整数）": {
+    "scope": "commonlisp",
+    "prefix": "] gcd",
+    "body": [
+      "gcd $1 $2"
+    ],
+  },
+  "最小公倍数（全ての引数、引数は整数）": {
+    "scope": "commonlisp",
+    "prefix": "] lcm",
+    "body": [
+      "lcm $1 $2"
+    ],
+  },
+  "平方根": {
+    "scope": "commonlisp",
+    "prefix": "] sqrt",
+    "body": [
+      "sqrt $1"
+    ],
+  },
+  "末尾の数字取り出し": {
+    "scope": "commonlisp",
+    "prefix": "] (rem ? 10)",
+    "body": [
+      "(rem $1 10)"
+    ],
+  },
+  "比較、同じ型＆同じ値": {
+    "scope": "commonlisp",
+    "prefix": "] equal",
+    "body": [
+      "equal"
+    ],
+  },
+  "比較、同じメモリ番地か調べる": {
+    "scope": "commonlisp",
+    "prefix": "] eq",
+    "body": [
+      "eq"
+    ],
+  },
+  // eq < eql < equal < equalp
+  "0？": {
+    "scope": "commonlisp",
+    "prefix": "] zerop",
+    "body": [
+      "zerop"
+    ],
+  },
+  "正の数？": {
+    "scope": "commonlisp",
+    "prefix": "] plusp",
+    "body": [
+      "plusp"
+    ],
+  },
+  "負の数？": {
+    "scope": "commonlisp",
+    "prefix": "] minusp",
+    "body": [
+      "minusp"
+    ],
+  },
+  "偶数？": {
+    "scope": "commonlisp",
+    "prefix": "] evenp",
+    "body": [
+      "evenp"
+    ],
+  },
+  "奇数？": {
+    "scope": "commonlisp",
+    "prefix": "] oddp",
+    "body": [
+      "oddp"
+    ],
+  },
+}
