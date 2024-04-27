@@ -52,3 +52,13 @@ a
 b
 c
 
+pi
+
+(defun area (x r)
+  (case x
+    (`square (* r r))
+    (t r)))
+
+(area `square 3)
+
+(member 3 `(1 2 3 4))
