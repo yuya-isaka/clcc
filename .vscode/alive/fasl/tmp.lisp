@@ -62,3 +62,9 @@ pi
 (area `square 3)
 
 (member 3 `(1 2 3 4))
+
+(consp `(1))
+(listp `(1 2 3))
+(eval (atom `(1)))
+
+(eql `(1 2 3) `(1 2 3))
