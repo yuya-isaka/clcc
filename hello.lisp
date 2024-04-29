@@ -36,21 +36,9 @@
 (cons `a `b)
 (cons `b nil)
 
-(setf xs (list `a (cons `b nil) (list (cons `c nil)) (list (list (cons `d nil)))))
-
-(setf ys (list (list `a `b `c) (list `d `e `f) (list `g `h `i)))
-
-(setf zs (list (cons `a `b) (cons `c `d) (cons `e `f)))
-
 (print most-positive-fixnum)
 
 (print least-positive-double-float)
-
-(setf a 1 b 2 c 3)
-
-a
-b
-c
 
 pi
 
@@ -68,3 +56,11 @@ pi
 (eval (atom `(1)))
 
 (eql `(1 2 3) `(1 2 3))
+
+(ash 2 1000)
+
+(with-open-file (stream #p"example.txt" :direction :input)
+  (file-position stream 100)
+  (let ((data (read-char stream nil)))
+    (when data
+          (format t "Character at position 100: ~a~%" data))))
