@@ -1,122 +1,98 @@
-(defclass instruction ()
-    ((code :accessor code :initarg :code)
-     (opts :accessor opts :initarg :opts)))
+(fib 10)
 
-(defmethod inspecttt ((insn instruction))
-  (format nil "~a <~{~a~^, ~}>" (code insn) (opts insn)))
+(format t "Hello world")
 
-(defvar *label-id* 0)
+(defun many (n)
+  (values n (* n 2) (* n 3)))
 
-(defclass label ()
-    ((label :accessor label :initarg :label)
-     (pos :accessor pos :initarg :pos :initform -1)
-     (id :accessor id :initform (incf *label-id*))))
+(multiple-value-list (many 3))
 
-(defmethod inspecttt ((lbl label))
-  (format nil "~a <~a@~a>" (label lbl) (id lbl) (pos lbl)))
+(nth-value 2 (many 3))
 
-(defclass evaluator ()
-    ((stack :accessor stack :initform nil)
-     (pc :accessor pc :initform 0)))
+(multiple-value-bind (first second third) (many 3) (list first second third))
 
-(defun evaluate (sequence evaluator)
-  (loop for insn = (nth (pc evaluator) sequence) while insn do
-          (dispatch insn evaluator))
-  (first (stack evaluator)))
+(format t (print "Hello"))
 
-(defun dispatch (insn evaluator)
-  (let ((code (code insn)))
-    (case code
-      (:nop nil)
-      (:push (push (first (opts insn)) (stack evaluator)))
-      (:pop (pop (stack evaluator)))
-      (:dup (let ((item (pop (stack evaluator))))
-              (push item (stack evaluator))
-              (push item (stack evaluator))))
-      (:add (push (+ (pop (stack evaluator)) (pop (stack evaluator))) (stack evaluator)))
-      (:sub (push (- (pop (stack evaluator)) (pop (stack evaluator))) (stack evaluator)))
-      (:mul (push (* (pop (stack evaluator)) (pop (stack evaluator))) (stack evaluator)))
-      (:div (push (/ (pop (stack evaluator)) (pop (stack evaluator))) (stack evaluator)))
-      (:not (push (not (pop (stack evaluator))) (stack evaluator)))
-      (:smaller (push (< (pop (stack evaluator)) (pop (stack evaluator))) (stack evaluator)))
-      (:bigger (push (> (pop (stack evaluator)) (pop (stack evaluator))) (stack evaluator)))
-      (:goto (setf (pc evaluator) (pos (first (opts insn)))))
-      (:if (when (pop (stack evaluator))
-                 (setf (pc evaluator) (pos (first (opts insn))))))
-      (t (error "Unknown Opcode: ~A" code)))))
+(uiop:read-file-string (merge-pathnames #p"example.lisp" #p"home"))
 
-; (defun parse (program)
-;   (let ((pc 0)
-;         (labels (make-hash-table :test 'equal))
-;         (instructions nil))
-;     (loop for line in (split-sequence:split-sequence #\Newline program)
-;           do (let ((line (string-trim " \t\n\r" line)))
-;                (cond
-;                 ((string-match "^:\\([a-z]+\\)$" line)
-;                   (let ((label (match-string 1 line)))
-;                     (unless (gethash label labels)
-;                       (setf (gethash label labels) (make-instance 'label :label label)))
-;                     (push (gethash label labels) instructions)))
+(with-open-file (fd #p"./tmp.txt" :direction :output :if-exists :supersede :if-does-not-exist :create)
+  (dotimes (i 100)
+    (format fd "~10,d~%" (random 100))))
 
-;                 ((string-match "^[a-z]+" line)
-;                   (multiple-value-bind (opcode rest) (split-sequence:split-sequence #\Space line :max-splits 1)
-;                     (push (make-instance 'instruction :code (intern (string-upcase opcode) :keyword) :opts (list rest)) instructions)))
+(format *error-output* "エラー発生、~A~%" "エラーだよ")
 
-;                 ((string-match "^\\d+" line)
-;                   (push (parse-integer line) instructions))
+(first nil)
+(rest nil)
 
-;                 ((or (string-match "^\\s*" line) (string-match "^#.*" line))
-;                   ()))
-;                (when (and (consp (car instructions)) (not (label-p (car instructions))))
-;                      (setf (pos (car instructions)) pc)
-;                      (incf pc))))
-;     (remove-if #'label-p (nreverse instructions))))
+(append `(d a) `(a b))
+(cons `(d a) `(a b))
+(cons `a `b)
+(cons `b nil)
 
-(defun parse (program)
-  (let ((pc 0)
-        (labels (make-hash-table :test 'equal))
-        (instructions nil))
-    (loop for line in (cl-ppcre:split #\newline program)
-          do (let ((line (string-trim " \t\n\r" line)))
-               (cond
-                ((cl-ppcre:scan "^:\\([a-z]+\\)$" line)
-                  (let ((label (cl-ppcre:regex-replace-all "^:\\([a-z]+\\)$" line "\\1")))
-                    (unless (gethash label labels)
-                      (setf (gethash label labels) (make-instance 'label :label label)))
-                    (push (gethash label labels) instructions)))
+(print most-positive-fixnum)
 
-                ((cl-ppcre:scan "^[a-z]+" line)
-                  (multiple-value-bind (opcode rest) (cl-ppcre:split #\Space line)
-                    ;; debug
-                    (format *error-output* "~a~%" opcode)
-                    (push (make-instance 'instruction :code (intern (string-upcase (car opcode)) :keyword) :opts (list rest)) instructions)))
+(print least-positive-double-float)
 
-                ((cl-ppcre:scan "^\\d+" line)
-                  (push (parse-integer line) instructions))
+pi
 
-                ((or (cl-ppcre:scan "^\\s*" line) (cl-ppcre:scan "^#.*" line))
-                  ()))
-               (when (and (consp (car instructions)) (not (label-p (car instructions))))
-                     (setf (pos (car instructions)) pc)
-                     (incf pc))))
-    (remove-if #'label-p (nreverse instructions))))
+(defun area (x r)
+  (case x
+    (`square (* r r))
+    (t r)))
+
+(area `square 3)
+
+(member 3 `(1 2 3 4))
+
+(consp `(1))
+(listp `(1 2 3))
+(eval (atom `(1)))
+
+(eql `(1 2 3) `(1 2 3))
+
+(ash 2 1000)
+
+(with-open-file (stream #p"example.txt" :direction :input)
+  (file-position stream 100)
+  (let ((data (read-char stream nil)))
+    (when data
+          (format t "Character at position 100: ~a~%" data))))
+
+(dotimes (x 5 x) (print x))
+
+(defun fact (x)
+  (let ((result 1))
+    (dotimes (n x result)
+      (setf result (* result (1+ n))))))
+
+(fact 3)
 
 
-(defun label-p (item)
-  (typep item 'label))
+(dolist (x `(0 1 2 3)) (print x))
 
-(let ((program "
-push 1
-:label
-push 1
-add
-dup
-push 100000
-bigger
-if :label
-"))
-  (let ((parsed-program (parse program)))
-    (format t "~%Parsed Program:~%")
-    (dolist (insn parsed-program)
-      (format t "~A~%" (inspect insn)))
-    (format t "~%Evaluation Result: ~A~%" (evaluate parsed-program (make-instance 'evaluator)))))
+
+; (time (length (fast-prime 100000)))
+
+(defun rpn (xs)
+  (let ((zs nil))
+    (dolist (x xs (if (and (consp zs) (null (cdr zs)))
+                      (car zs)
+                      "invalid expression"))
+      (if (numberp x)
+          (push x zs)
+          (let ((b (pop zs)) (a (pop zs)))
+            (if (or (null b) (null a))
+                (return "stack underflow"))
+            (case
+                x
+              (+ (push (+ a b) zs))
+              (- (push (- a b) zs))
+              (* (push (* a b) zs))
+              (/ (push (/ a b) zs))
+              (t (return "invalid operation"))))))))
+
+(equal (rpn `(1 2 + 3 4 + *)) 21)
+(equal (rpn `(1 2 + 3 4 - *)) -3)
+(equal (rpn `(1 2 + 3 4 + 5 6 + * *)) 231)
+(equal (rpn `(1 2 + 3 4 + 5 6 + * /)) 3/77)
+(equal (rpn `(1 2 + 3 4 + * 5 6 + /)) 21/11)
