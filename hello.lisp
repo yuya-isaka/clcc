@@ -1,5 +1,3 @@
-(fib 10)
-
 (format t "Hello world")
 
 (defun many (n)
@@ -96,3 +94,31 @@ pi
 (equal (rpn `(1 2 + 3 4 + 5 6 + * *)) 231)
 (equal (rpn `(1 2 + 3 4 + 5 6 + * /)) 3/77)
 (equal (rpn `(1 2 + 3 4 + * 5 6 + /)) 21/11)
+
+(apply #'+ (mapcar #'length `("abc" "defg" "hijkl" "mnopqr")))
+
+(defun exec-fun (func a b)
+  (funcall func a b))
+
+(exec-fun #'+ 1 2)
+
+(mapcar (lambda (x) (* x x)) `(1 2 3))
+(funcall #'(lambda (x) (* x x)) 2)
+
+(defun map1 (fn xs)
+  (if (null xs)
+      nil
+      (cons (funcall fn (car xs)) (map1 fn (cdr xs)))))
+
+(defun map2 (fn xs ys)
+  (if (or (null xs) (null ys))
+      nil)
+  (cons (funcall fn (car xs) (car ys)) (map2 fn (cdr xs) (cdr ys))))
+
+(defun filter (pred xs)
+  (cond ((null xs) nil)
+        ((funcall 'pred (car xs)) (cons (car xs) (filter pred (cdr xs))))
+        (t (filter pred (cdr xs)))))
+
+(mapcar (lambda (x) (if (evenp x) x)) '(1 2 3))
+(funcall (lambda (x) (if (evenp x) x)) 2)
